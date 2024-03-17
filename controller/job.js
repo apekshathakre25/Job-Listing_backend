@@ -53,7 +53,7 @@ const getJobById = async (req, res) => {
     });
   }
   const jobDetails = await Job.findById(jobId);
-  return res.send(jobDetails, { companyName: 1 });
+  return res.send(jobDetails);
 };
 
 const updateJobById = async (req, res) => {
