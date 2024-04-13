@@ -1,5 +1,6 @@
 const Job = require("../models/job");
 const createJobPost = async (req, res) => {
+  console.log(req.body)
   try {
     const {
       companyName,
@@ -12,19 +13,20 @@ const createJobPost = async (req, res) => {
       duration,
       skills,
     } = req.body;
-    if (
-      !companyName ||
-      !title ||
-      !logoUrl ||
-      !description ||
-      !salary ||
-      !location ||
-      !locationType ||
-      !duration ||
-      !skills
-    ) {
-      return res.status(401).json({ errorMessage: "all feild are required" });
-    }
+   
+    // if (
+    //   !companyName ||
+    //   !title ||
+    //   !logoUrl ||
+    //   !description ||
+    //   !salary ||
+    //   !location ||
+    //   !locationType ||
+    //   !duration ||
+    //   !skills
+    // ) {
+    //   return res.status(401).json({ errorMessage: "all feild are required" });
+    // }
 
     const jobDetails = new Job({
       companyName,
@@ -37,6 +39,7 @@ const createJobPost = async (req, res) => {
       duration,
       skills,
     });
+    console.log("jobdetails",jobDetails)
 
     await jobDetails.save();
     res.status(200).json({ message: "Job created successfully" });
