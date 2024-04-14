@@ -1,6 +1,6 @@
 const Job = require("../models/job");
 const createJobPost = async (req, res) => {
-  console.log(req.body)
+  console.log(req.body);
   try {
     const {
       companyName,
@@ -13,7 +13,7 @@ const createJobPost = async (req, res) => {
       duration,
       skills,
     } = req.body;
-   
+
     // if (
     //   !companyName ||
     //   !title ||
@@ -39,7 +39,7 @@ const createJobPost = async (req, res) => {
       duration,
       skills,
     });
-    console.log("jobdetails",jobDetails)
+    console.log("jobdetails", jobDetails);
 
     await jobDetails.save();
     res.status(200).json({ message: "Job created successfully" });
@@ -126,7 +126,7 @@ const getAllJobs = async (req, res) => {
 
     let formattedSkills;
     if (skills) {
-     formattedSkills = skills.split(",");
+      formattedSkills = skills.split(",");
     }
 
     const jobList = await Job.find(
@@ -134,7 +134,14 @@ const getAllJobs = async (req, res) => {
         title: { $regex: title, $options: "i" },
         skills: { $in: formattedSkills },
       },
-      { title: 1, salary: 1, logoUrl: 1, location: 1, skills: 1 }
+      {
+        companyName: 1,
+        title: 1,
+        salary: 1,
+        logoUrl: 1,
+        location: 1,
+        skills: 1,
+      }
     );
     res.json({ data: jobList });
   } catch (error) {
